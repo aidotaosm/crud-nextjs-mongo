@@ -1,4 +1,4 @@
-import { createData, getAllData } from "@/services/api/random/service";
+import { createData, getAllData } from "@/services/api/sets/service";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function create(

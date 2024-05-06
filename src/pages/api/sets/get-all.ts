@@ -1,4 +1,4 @@
-import { getAllData } from "@/services/api/random/service";
+import { getAllData } from "@/services/api/sets/service";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function getAll(
