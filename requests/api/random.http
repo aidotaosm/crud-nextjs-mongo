@@ -1,0 +1,12 @@
+### create data
+POST http://localhost:3001/api/random/create HTTP/1.1
+content-type: application/json
+
+{
+    "name": "shafayet",
+    "age": "24"
+}
+
+### get all data
+GET http://localhost:3001/api/random/get-all HTTP/1.1
+content-type: application/json
