@@ -1,4 +1,18 @@
 import clientPromise from '@/lib/mongodb';
+import { ObjectId } from 'mongodb';
+import { tryToConvertObjectId } from '../utils';
+
+export const getById = async (id: string) => {
+  const objectId = tryToConvertObjectId(id);
+  if(!objectId) return undefined;
+
+  const client = await clientPromise;
+  const database = client.db("codecamp");
+  const collection = database.collection("sets");
+  const data = await collection.findOne({ _id: new ObjectId(id) });
+
+  return data;
+};
 
 export const getAllData = async () => {
   const client = await clientPromise;
@@ -17,4 +31,26 @@ export const createData = async (payload: any) => {
     const collection = database.collection("sets");
 
     return await collection.insertOne(payload);
+}
+
+export const deleteById = async (id: string) => {
+  const objectId = tryToConvertObjectId(id);
+  if(!objectId) return undefined;
+
+  const client = await clientPromise;
+  const database = client.db("codecamp");
+  const collection = database.collection("sets");
+
+  return await collection.deleteOne({ _id: new ObjectId(id)});
+}
+
+export const updateData = async (id: string, payload: any) => {
+  const objectId = tryToConvertObjectId(id);
+  if(!objectId) return undefined;
+
+  const client = await clientPromise;
+  const database = client.db("codecamp");
+  const collection = database.collection("sets");
+
+  return await collection.updateOne({ _id: new ObjectId(id)}, { $set: payload });
 }

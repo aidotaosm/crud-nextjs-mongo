@@ -1,0 +1,44 @@
+### create data
+POST http://localhost:3000/api/sets HTTP/1.1
+content-type: application/json
+x-api-key: 7b651729-1270-4d37-9dca-1730d2ebc0ee
+
+{
+    "name": "shafayet",
+    "age": "24"
+}
+
+### get all data
+GET http://localhost:3000/api/sets HTTP/1.1
+content-type: application/json
+x-api-key: 7b651729-1270-4d37-9dca-1730d2ebc0ee
+
+### get a data
+GET http://localhost:3000/api/sets/6639cdf3167a6134cd25b77f HTTP/1.1
+content-type: application/json
+x-api-key: 7b651729-1270-4d37-9dca-1730d2ebc0ee
+
+### delete data
+DELETE http://localhost:3000/api/sets/6639ce24167a6134cd25b780 HTTP/1.1
+content-type: application/json
+x-api-key: 7b651729-1270-4d37-9dca-1730d2ebc0ee
+
+### update data
+PUT http://localhost:3000/api/sets/6639cdf3167a6134cd25b77f HTTP/1.1
+content-type: application/json
+x-api-key: 7b651729-1270-4d37-9dca-1730d2ebc0ee
+
+{
+    "age": "30"
+}
+
+
+### Get a fake data
+GET http://localhost:3000/api/sets/get HTTP/1.1
+content-type: application/json
+x-api-key: 7b651729-1270-4d37-9dca-1730d2ebc0ee
+
+### wrong route
+GET http://localhost:3000/api/wrong HTTP/1.1
+content-type: application/json
+x-api-key: 7b651729-1270-4d37-9dca-1730d2ebc0ee
