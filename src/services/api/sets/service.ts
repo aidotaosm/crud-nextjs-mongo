@@ -1,15 +1,12 @@
-import clientPromise from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
-import { tryToConvertObjectId } from '../utils';
+import clientPromise from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
+import { tryToConvertObjectId } from "../utils";
 
 export const getById = async (name: string) => {
-  // const objectId = tryToConvertObjectId(id);
-  // if(!objectId) return undefined;
-
   const client = await clientPromise;
   const database = client.db("codecamp");
   const collection = database.collection("sets");
-  const data = await collection.findOne({ name:  name });
+  const data = await collection.findOne({ name: name });
 
   return data;
 };
@@ -24,33 +21,27 @@ export const getAllData = async () => {
   return allData;
 };
 
-export const createData = async (payload: any) => {
-    const client = await clientPromise;
+export const createSet = async (payload: any) => {
+  const client = await clientPromise;
 
-    const database = client.db("codecamp");
-    const collection = database.collection("sets");
+  const database = client.db("codecamp");
+  const collection = database.collection("sets");
 
-    return await collection.insertOne(payload);
-}
+  return await collection.insertOne(payload);
+};
 
-export const deleteById = async (id: string) => {
-  const objectId = tryToConvertObjectId(id);
-  if(!objectId) return undefined;
-
+export const deleteById = async (name: string) => {
   const client = await clientPromise;
   const database = client.db("codecamp");
   const collection = database.collection("sets");
 
-  return await collection.deleteOne({ _id: new ObjectId(id)});
-}
+  return await collection.deleteOne({ name: name });
+};
 
-export const updateData = async (id: string, payload: any) => {
-  const objectId = tryToConvertObjectId(id);
-  if(!objectId) return undefined;
-
+export const updateData = async (name: string, payload: any) => {
   const client = await clientPromise;
   const database = client.db("codecamp");
   const collection = database.collection("sets");
 
-  return await collection.updateOne({ _id: new ObjectId(id)}, { $set: payload });
-}
+  return await collection.updateOne({ name: name }, { $set: payload });
+};
