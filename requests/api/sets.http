@@ -19,7 +19,7 @@ content-type: application/json
 x-api-key: 7b651729-1270-4d37-9dca-1730d2ebc0ee
 
 ### delete data
-DELETE http://localhost:3000/api/sets/663a2ec2c0465bbedad52e9f HTTP/1.1
+DELETE http://localhost:3000/api/sets/base2 HTTP/1.1
 content-type: application/json
 x-api-key: 7b651729-1270-4d37-9dca-1730d2ebc0ee
 

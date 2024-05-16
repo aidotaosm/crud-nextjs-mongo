@@ -1,5 +1,12 @@
+import Cors from "cors";
 import { NextApiRequest, NextApiResponse } from "next";
 import { createData, deleteById, getAllData, getById, updateData } from "@/services/api/sets/service";
+import { NextRequest, NextResponse } from "next/server";
+
+// Initializing the cors middleware
+const cors = Cors({
+  methods: ["POST", "GET", "PUT", "DELETE"],
+});
 
 export default async function sets(req: NextApiRequest, res: NextApiResponse) {
   const { slug } = req.query;
@@ -56,4 +63,10 @@ export default async function sets(req: NextApiRequest, res: NextApiResponse) {
   }
 
   res.statusCode = 404;
+}
+
+export const OPTIONS = async (request: NextRequest) => {
+  return new NextResponse('', {
+    status: 200
+  })
 }
