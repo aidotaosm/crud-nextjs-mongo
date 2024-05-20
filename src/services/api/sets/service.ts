@@ -1,6 +1,5 @@
 import clientPromise from "@/lib/mongodb";
-import { ObjectId } from "mongodb";
-import { tryToConvertObjectId } from "../utils";
+import { ObjectId, OptionalId } from "mongodb";
 
 export const getById = async (name: string) => {
   const client = await clientPromise;
@@ -35,7 +34,13 @@ export const deleteById = async (name: string) => {
   const database = client.db("codecamp");
   const collection = database.collection("sets");
 
-  return await collection.deleteOne({ name: name });
+  try{
+    return await collection.deleteOne({ name: name });
+  }
+  catch(ex){
+    console.log(ex);
+  }
+
 };
 
 export const updateData = async (name: string, payload: any) => {

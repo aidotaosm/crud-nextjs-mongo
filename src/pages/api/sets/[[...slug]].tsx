@@ -6,20 +6,20 @@ import Cors from "cors";
 
 const cors = Cors({
   origin: "*",
-  methods: ["POST", "GET", "HEAD", "OPTIONS", "DELETE"],
+  methods: "*",
   allowedHeaders: "*"
 });
 
 export default async function sets(req: NextApiRequest, res: NextApiResponse) {
-  cors(req, res, async () => {
-    await mapRoute(req, res, {
-      GET: async (req: Request): Promise<Response> => handleGet(req),
-      GETALL: async (req: Request): Promise<Response> => handleGetAll(req),
-      POST: (req: Request): Promise<Response>  => handlePost(req),
-      PUTWITSLUG: (req: Request): Promise<Response>  => handlePut(req),
-      DELETE: (req: Request): Promise<Response>  => handleDelete(req)
+    cors(req, res, async () => {
+      await mapRoute(req, res, {
+        GET: async (req: Request): Promise<Response> => handleGet(req),
+        GETALL: async (req: Request): Promise<Response> => handleGetAll(req),
+        POST: (req: Request): Promise<Response>  => handlePost(req),
+        PUTWITSLUG: (req: Request): Promise<Response> => handlePut(req),
+        DELETE: (req: Request): Promise<Response>  => handleDelete(req)
+      });
     });
-  });
 }
 
 const handleGet = async (req: Request): Promise<Response> => {
@@ -37,6 +37,7 @@ const handleGetAll = async (req: Request): Promise<Response> => {
 
 const handlePost = async (req: Request): Promise<Response> => {
     const name = req.body.name;
+
     const set = await getById(name);
     if (set) return { status: 403, message: "Set already exists" };
 

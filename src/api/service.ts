@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { RequestType, Response, Request } from "./interfaces";
+import { RequestType, Request } from "./interfaces";
 
 export const mapRoute = async (
   req: NextApiRequest,
@@ -7,6 +7,8 @@ export const mapRoute = async (
   callback: any
 ) => {
   let reqType: RequestType;
+
+  console.log("req type 0", reqType);
 
   if (req.method === "GET" && req.query.slug !== undefined) reqType = "GET";
   else if (req.method === "GET" && req.query.slug === undefined) reqType = "GET_ALL";
@@ -19,7 +21,7 @@ export const mapRoute = async (
     reqType = "PUT_WITH_SLUG";
   else if (req.method === "PUT" && req.query.slug !== undefined) reqType = "PUT";
 
-  console.log(reqType);
+  console.log("req type 1", reqType);
 
   switch (reqType) {
     case "GET": {
@@ -63,7 +65,7 @@ export const mapRoute = async (
 
     case "POST": {
       const { slug, ...optionalParam } = req.query;
-      const request = {
+      const request: Request = {
         method: "POST",
         query: {
           slug: slug as string[],

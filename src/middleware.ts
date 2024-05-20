@@ -1,26 +1,21 @@
+import { IM_Fell_French_Canon } from "next/font/google";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
   const apiKeyFromHeader = request.headers.get("x-api-key");
 
-  const response = new NextResponse();
+  if (request.method !== "OPTIONS" && apiKeyFromHeader !== process.env.NEXT_PUBLIC_API_KEY) {
+    return NextResponse.json({ message: "Invalid API key" }, { status: 400 });
+  }
 
-  // if (apiKeyFromHeader !== process.env.NEXT_PUBLIC_API_KEY) {
-  //   return NextResponse.json({ message: "Invalid API key" }, { status: 400 });
-  // }
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': '*',
+    'Access-Control-Allow-Headers': '*',
+  }
 
-  const newHeader = new Headers();
-  newHeader.append("Access-Control-Allow-Credentials", "true");
-  newHeader.append("Access-Control-Allow-Origin", "*");
-  newHeader.append("Access-Control-Allow-Methods", "*");
-  newHeader.append("Access-Control-Allow-Headers",  "*");
-
-  return NextResponse.next({
-    request: {
-      headers: newHeader,
-    },
-  })
+  if(request.method === "OPTIONS") return NextResponse.json({}, { headers: corsHeaders });
 }
 
 export const config = {
